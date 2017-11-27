@@ -31,7 +31,7 @@ class Walls:
         self.n_rows = n_rows
         self.n_cols = n_cols
         self.update_size = 0
-        self.now_size = 0.55
+        self.now_size = 0.50
         self.now_pos = 0.5
         self.now_slope = 0
         self.list = [Wall(n_rows * self.now_size, n_rows * self.now_pos) for c in range(n_cols)]
@@ -42,16 +42,16 @@ class Walls:
         if self.update_size > 50:
             self.update_size = 0
             self.now_size -= 0.01
-            if self.now_size < 0.3:
-                self.now_size = 0.3
+            if self.now_size < 0.2:
+                self.now_size = 0.2
         val = random.random()  # 0    1     -1
-        th_up = 0.6 if self.now_slope != 1 else 0.2  # 0.6 >0.15 >0.6
-        th_down = 0.4 if self.now_slope != -1 else 0.8  # 0.4 <0.4 <0.85
+        th_up = 0.6 if self.now_slope != 1 else 0.15  # 0.6 >0.15 >0.6
+        th_down = 0.4 if self.now_slope != -1 else 0.85  # 0.4 <0.4 <0.85
         if val > th_up:
-            self.now_pos += (val - 0.6) * 0.1
+            self.now_pos += (val - 0.6) * 0.15
             self.now_slope = 1
         elif val < th_down:
-            self.now_pos -= (0.4 - val) * 0.1
+            self.now_pos -= (0.4 - val) * 0.15
             self.now_slope = -1
         else:
             self.now_slope = 0
@@ -156,7 +156,7 @@ class Cave:
             self.reward = -1
             self.terminal = True
         if sum(hits) > 0:
-            self.reward = -1.5
+            self.reward = -2
             self.terminal = True
 
         if len(self.blocks) > 0 and self.blocks[0].col < 0:

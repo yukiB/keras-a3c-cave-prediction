@@ -102,7 +102,7 @@ class Environment:
         # スレッドで平均報酬が一定を越えたら終了
         if self.name == "local_thread1" and self.count_trial_each_thread % 500 == 0:
             self.parameter_server.save(self.count_trial_each_thread)
-        if self.total_reward_vec.mean() > 499:
+        if self.total_reward_vec.mean() > 799:
             self.config.isLearned = True
             time.sleep(2.0)     # この間に他のlearningスレッドが止まります
             self.agent.brain.push_parameter_server()    # この成功したスレッドのパラメータをparameter-serverに渡します
